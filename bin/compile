@@ -17,8 +17,8 @@ mkdir -p "$BUILD_DIR/.jp_vendor/"
 cd $BUILD_DIR
 
 # Install SWIG
-echo "-----> Fetching and installing SWIG 2"
-curl https://jamarparris.s3.amazonaws.com/vendor_binaries/swig-2.0.5/swig.tar.gz --output /tmp/swig.tar.gz
+echo "-----> Fetching and installing SWIG 4.2.1"
+curl -L https://github.com/libroreserve/heroku-buildpack-swig/raw/master/swig.tar.gz -o /tmp/swig.tar.gz
 
 echo "SWIG downloaded"
 
@@ -30,13 +30,11 @@ rm -rf "$BUILD_DIR/.jp_vendor/swig"
 mv /tmp/swig "$BUILD_DIR/.jp_vendor"
 
 export PATH="$BUILD_DIR/.jp_vendor/swig/bin":$PATH
-export SWIG_LIB="$BUILD_DIR/.jp_vendor/swig/share/swig/2.0.5"
+export SWIG_LIB="$BUILD_DIR/.jp_vendor/swig/share/swig/4.2.1"
 
 echo "export PATH=$PATH" > $BP_DIR/export
 echo "export SWIG_LIB=$SWIG_LIB" >> $BP_DIR/export
 echo 'export SWIG_FEATURES="-I/usr/include/openssl"' >> $BP_DIR/export
-
-# echo "$BP_DIR"
 
 cat $BP_DIR/export
 which swig
